@@ -56,17 +56,12 @@ class DenoinsingAutoencoder {
             size: [2, 2]
         }));
         encoder.add(tf.layers.conv2dTranspose ({
-            filters: 3, 
-            kernelSize: 5
-        }));
-
-        encoder.add(tf.layers.conv2dTranspose ({
             filters: 4, 
             kernelSize: 5
         }));
         encoder.add(tf.layers.conv2dTranspose ({
             filters: 8, 
-            kernelSize: 5
+            kernelSize: 3
         }));
         return encoder;
     }
@@ -79,14 +74,14 @@ class DenoinsingAutoencoder {
         decoder.add(tf.layers.conv2d({
             inputShape: latent_shape, 
             filters: 8, 
-            kernelSize: 5
+            kernelSize: 3
         }));
         decoder.add(tf.layers.maxPooling2d({
             poolSize: 2
         }));
         decoder.add(tf.layers.conv2d({
             filters: 3, 
-            kernelSize: 5
+            kernelSize: 3
         }));
         return decoder;
     }

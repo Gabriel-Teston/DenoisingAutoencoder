@@ -60,7 +60,7 @@ function create_dataset(input_data, n){
 }
 
 function setup() {
-    let dataset = create_dataset(TRAINING_DATA.inputs, 100);
+    let dataset = create_dataset(TRAINING_DATA.inputs, 50);
     inputs = dataset['inputs'];
     outputs = dataset['outputs'];
 
@@ -73,14 +73,17 @@ function setup() {
     drawImage(outputs[idx], input_canvas, 4);
 
     button = createButton('train');
-    button.mousePressed(() => {
+    button.mousePressed(async () => {
         if(!train) {
             train = true;
             button.html('stop');
-            model.train(10, log_fn).then(() => {
-                button.html('train');
-                train = false;  
-            }); 
+            while (train) {
+                await model.train(1, log_fn);
+            }
+        }
+        else {
+            button.html('train');
+            train = false;  
         }
     });
 
