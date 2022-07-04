@@ -107,13 +107,13 @@ async function draw() {
         drawImage(result_img, output_canvas, 4);
     }
     
-    idx_span.position(10, input_canvas.height + 15);
-    idx_slider.position(10, input_canvas.height + 30);
+    idx_span.position(10, input_canvas.height + 35);
+    idx_slider.position(10, input_canvas.height + 50);
     
-    max_noise_span.position(10, input_canvas.height + 45);
-    max_noise_slider.position(10, input_canvas.height + 60);
+    max_noise_span.position(10, input_canvas.height + 65);
+    max_noise_slider.position(10, input_canvas.height + 80);
     
-    button.position(10, input_canvas.height + 80);
+    button.position(10, input_canvas.height + 100);
 }
 
 function apply_noise(img, max_noise) {

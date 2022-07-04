@@ -51,16 +51,16 @@ class DenoinsingAutoencoder {
 
     build_encoder(h, w, channels) {
         let encoder = tf.sequential();
-        encoder.add(tf.layers.upSampling2d ({
+        encoder.add(tf.layers.conv2d({
             inputShape: [w, h, channels], 
-            size: [2, 2]
-        }));
-        encoder.add(tf.layers.conv2dTranspose ({
-            filters: 4, 
-            kernelSize: 5
-        }));
-        encoder.add(tf.layers.conv2dTranspose ({
             filters: 8, 
+            kernelSize: 3
+        }));
+        encoder.add(tf.layers.maxPooling2d({
+            poolSize: 2
+        }));
+        encoder.add(tf.layers.conv2d({
+            filters: 3, 
             kernelSize: 3
         }));
         return encoder;
@@ -71,15 +71,15 @@ class DenoinsingAutoencoder {
         let latent_shape = this.encoder.predict(sample_tensor).shape.slice(1);
 
         let decoder = tf.sequential();
-        decoder.add(tf.layers.conv2d({
+        decoder.add(tf.layers.upSampling2d ({
             inputShape: latent_shape, 
-            filters: 8, 
-            kernelSize: 3
+            size: [2, 2]
         }));
-        decoder.add(tf.layers.maxPooling2d({
-            poolSize: 2
+        decoder.add(tf.layers.conv2dTranspose ({
+            filters: 4, 
+            kernelSize: 5
         }));
-        decoder.add(tf.layers.conv2d({
+        decoder.add(tf.layers.conv2dTranspose ({
             filters: 3, 
             kernelSize: 3
         }));
